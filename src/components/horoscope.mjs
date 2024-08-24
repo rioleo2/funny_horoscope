@@ -27,7 +27,7 @@ async function Horoscope(sign) {
     console.log(completion.choices[0].message.content);
 }
 
-export default function handleClick() {
+export default async function handleClick() {
     let placeholder = document.getElementsByClassName('placeholder')[0]
     let container = document.getElementsByClassName('horoscope__text')[0];
     placeholder.style.display = 'block';
@@ -36,13 +36,11 @@ export default function handleClick() {
     let signElement = document.getElementById('sign');
     let signValue = signElement.value;
 
-    Horoscope(signValue);
-    setTimeout(() => {
-        // Скрываем заглушку и показываем контент
-        placeholder.style.display = 'none';
-        container.style.display = 'block';
-    }, 3000); // 2 секунды для примера
-    // console.log(signValue)
+    try {
+        await Horoscope(signValue);
+    } finally {
+        placeholder.style.display = 'none';  
+    }
 }
 
 
